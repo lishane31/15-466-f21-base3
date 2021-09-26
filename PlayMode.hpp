@@ -28,14 +28,14 @@ struct PlayMode : Mode {
 	//local copy of the game scene (so code can change it during gameplay):
 	Scene scene;
 
-	//hexapod leg to wobble:
-	Scene::Transform *hip = nullptr;
-	Scene::Transform *upper_leg = nullptr;
-	Scene::Transform *lower_leg = nullptr;
-	glm::quat hip_base_rotation;
-	glm::quat upper_leg_base_rotation;
-	glm::quat lower_leg_base_rotation;
-	float wobble = 0.0f;
+	// //hexapod leg to wobble:
+	// Scene::Transform *hip = nullptr;
+	// Scene::Transform *upper_leg = nullptr;
+	// Scene::Transform *lower_leg = nullptr;
+	// glm::quat hip_base_rotation;
+	// glm::quat upper_leg_base_rotation;
+	// glm::quat lower_leg_base_rotation;
+	// float wobble = 0.0f;
 
 	glm::vec3 get_leg_tip_position();
 
@@ -45,4 +45,6 @@ struct PlayMode : Mode {
 	//camera:
 	Scene::Camera *camera = nullptr;
 
+	float time = 0.0f;
+	int repeat_rate = 14;
 };
