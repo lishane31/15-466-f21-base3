@@ -43,20 +43,6 @@ Load< Sound::Sample > background_sample(LoadTagDefault, []() -> Sound::Sample co
 });
 
 PlayMode::PlayMode() : scene(*hexapod_scene) {
-	// //get pointers to leg for convenience:
-	// for (auto &transform : scene.transforms) {
-	// 	if (transform.name == "Hip.FL") hip = &transform;
-	// 	else if (transform.name == "UpperLeg.FL") upper_leg = &transform;
-	// 	else if (transform.name == "LowerLeg.FL") lower_leg = &transform;
-	// }
-	// if (hip == nullptr) throw std::runtime_error("Hip not found.");
-	// if (upper_leg == nullptr) throw std::runtime_error("Upper leg not found.");
-	// if (lower_leg == nullptr) throw std::runtime_error("Lower leg not found.");
-
-	// hip_base_rotation = hip->rotation;
-	// upper_leg_base_rotation = upper_leg->rotation;
-	// lower_leg_base_rotation = lower_leg->rotation;
-
 	//get pointer to camera for convenience:
 	if (scene.cameras.size() != 1) throw std::runtime_error("Expecting scene to have exactly one camera, but it has " + std::to_string(scene.cameras.size()));
 	camera = &scene.cameras.front();
@@ -70,58 +56,77 @@ PlayMode::~PlayMode() {
 }
 
 bool PlayMode::handle_event(SDL_Event const &evt, glm::uvec2 const &window_size) {
+	auto set_pressed = [](Button &button) {
+		button.down = true;
+		return true;
+	};
+
+	auto set_unpressed = [](Button &button) {
+		button.pressed = false;
+		return true;
+	};
 
 	if (evt.type == SDL_KEYDOWN) {
 		if (evt.key.keysym.sym == SDLK_ESCAPE) {
 			SDL_SetRelativeMouseMode(SDL_FALSE);
 			return true;
-		} else if (evt.key.keysym.sym == SDLK_a) {
-			left.downs += 1;
-			left.pressed = true;
-			return true;
-		} else if (evt.key.keysym.sym == SDLK_d) {
-			right.downs += 1;
-			right.pressed = true;
-			return true;
-		} else if (evt.key.keysym.sym == SDLK_w) {
-			up.downs += 1;
-			up.pressed = true;
-			return true;
-		} else if (evt.key.keysym.sym == SDLK_s) {
-			down.downs += 1;
-			down.pressed = true;
-			return true;
-		}
+		} 
+		else if (evt.key.keysym.sym == SDLK_a) 	return set_pressed(a);
+		else if (evt.key.keysym.sym == SDLK_b) 	return set_pressed(b);
+		else if (evt.key.keysym.sym == SDLK_c) 	return set_pressed(c);
+		else if (evt.key.keysym.sym == SDLK_d) 	return set_pressed(d);
+		else if (evt.key.keysym.sym == SDLK_e) 	return set_pressed(e);
+		else if (evt.key.keysym.sym == SDLK_e) 	return set_pressed(f);
+		else if (evt.key.keysym.sym == SDLK_g) 	return set_pressed(g);
+		else if (evt.key.keysym.sym == SDLK_h) 	return set_pressed(h);
+		else if (evt.key.keysym.sym == SDLK_i) 	return set_pressed(i);
+		else if (evt.key.keysym.sym == SDLK_j) 	return set_pressed(j);
+		else if (evt.key.keysym.sym == SDLK_k) 	return set_pressed(k);
+		else if (evt.key.keysym.sym == SDLK_l) 	return set_pressed(l);
+		else if (evt.key.keysym.sym == SDLK_m) 	return set_pressed(m);
+		else if (evt.key.keysym.sym == SDLK_n) 	return set_pressed(n);
+		else if (evt.key.keysym.sym == SDLK_o) 	return set_pressed(o);
+		else if (evt.key.keysym.sym == SDLK_p) 	return set_pressed(p);
+		else if (evt.key.keysym.sym == SDLK_q) 	return set_pressed(q);
+		else if (evt.key.keysym.sym == SDLK_r) 	return set_pressed(r);
+		else if (evt.key.keysym.sym == SDLK_s) 	return set_pressed(s);
+		else if (evt.key.keysym.sym == SDLK_t) 	return set_pressed(t);
+		else if (evt.key.keysym.sym == SDLK_u) 	return set_pressed(u);
+		else if (evt.key.keysym.sym == SDLK_v) 	return set_pressed(v);
+		else if (evt.key.keysym.sym == SDLK_w) 	return set_pressed(w);
+		else if (evt.key.keysym.sym == SDLK_x) 	return set_pressed(x);
+		else if (evt.key.keysym.sym == SDLK_y) 	return set_pressed(y);
+		else if (evt.key.keysym.sym == SDLK_z) 	return set_pressed(z);
 	} else if (evt.type == SDL_KEYUP) {
-		if (evt.key.keysym.sym == SDLK_a) {
-			left.pressed = false;
-			return true;
-		} else if (evt.key.keysym.sym == SDLK_d) {
-			right.pressed = false;
-			return true;
-		} else if (evt.key.keysym.sym == SDLK_w) {
-			up.pressed = false;
-			return true;
-		} else if (evt.key.keysym.sym == SDLK_s) {
-			down.pressed = false;
-			return true;
-		}
+		if (evt.key.keysym.sym == SDLK_a) 		return set_unpressed(a);
+		else if (evt.key.keysym.sym == SDLK_b) 	return set_unpressed(b);
+		else if (evt.key.keysym.sym == SDLK_c) 	return set_unpressed(c);
+		else if (evt.key.keysym.sym == SDLK_d) 	return set_unpressed(d);
+		else if (evt.key.keysym.sym == SDLK_e) 	return set_unpressed(e);
+		else if (evt.key.keysym.sym == SDLK_e) 	return set_unpressed(f);
+		else if (evt.key.keysym.sym == SDLK_g) 	return set_unpressed(g);
+		else if (evt.key.keysym.sym == SDLK_h) 	return set_unpressed(h);
+		else if (evt.key.keysym.sym == SDLK_i) 	return set_unpressed(i);
+		else if (evt.key.keysym.sym == SDLK_j) 	return set_unpressed(j);
+		else if (evt.key.keysym.sym == SDLK_k) 	return set_unpressed(k);
+		else if (evt.key.keysym.sym == SDLK_l) 	return set_unpressed(l);
+		else if (evt.key.keysym.sym == SDLK_m) 	return set_unpressed(m);
+		else if (evt.key.keysym.sym == SDLK_n) 	return set_unpressed(n);
+		else if (evt.key.keysym.sym == SDLK_o) 	return set_unpressed(o);
+		else if (evt.key.keysym.sym == SDLK_p) 	return set_unpressed(p);
+		else if (evt.key.keysym.sym == SDLK_q) 	return set_unpressed(q);
+		else if (evt.key.keysym.sym == SDLK_r) 	return set_unpressed(r);
+		else if (evt.key.keysym.sym == SDLK_s) 	return set_unpressed(s);
+		else if (evt.key.keysym.sym == SDLK_t) 	return set_unpressed(t);
+		else if (evt.key.keysym.sym == SDLK_u) 	return set_unpressed(u);
+		else if (evt.key.keysym.sym == SDLK_v) 	return set_unpressed(v);
+		else if (evt.key.keysym.sym == SDLK_w) 	return set_unpressed(w);
+		else if (evt.key.keysym.sym == SDLK_x) 	return set_unpressed(x);
+		else if (evt.key.keysym.sym == SDLK_y) 	return set_unpressed(y);
+		else if (evt.key.keysym.sym == SDLK_z) 	return set_unpressed(z);
 	} else if (evt.type == SDL_MOUSEBUTTONDOWN) {
 		if (SDL_GetRelativeMouseMode() == SDL_FALSE) {
 			SDL_SetRelativeMouseMode(SDL_TRUE);
-			return true;
-		}
-	} else if (evt.type == SDL_MOUSEMOTION) {
-		if (SDL_GetRelativeMouseMode() == SDL_TRUE) {
-			glm::vec2 motion = glm::vec2(
-				evt.motion.xrel / float(window_size.y),
-				-evt.motion.yrel / float(window_size.y)
-			);
-			camera->transform->rotation = glm::normalize(
-				camera->transform->rotation
-				* glm::angleAxis(-motion.x * camera->fovy, glm::vec3(0.0f, 1.0f, 0.0f))
-				* glm::angleAxis(motion.y * camera->fovy, glm::vec3(1.0f, 0.0f, 0.0f))
-			);
 			return true;
 		}
 	}
@@ -135,60 +140,46 @@ void PlayMode::update(float elapsed) {
 		time = 0;
 	}
 
-	// //slowly rotates through [0,1):
-	// wobble += elapsed / 10.0f;
-	// wobble -= std::floor(wobble);
+	auto check_letter = [this](Button &button, char letter) {
+		if(button.down && !button.pressed && letter == tolower(text.at(index))) {		
+			button.pressed = true;
 
-	// hip->rotation = hip_base_rotation * glm::angleAxis(
-	// 	glm::radians(5.0f * std::sin(wobble * 2.0f * float(M_PI))),
-	// 	glm::vec3(0.0f, 1.0f, 0.0f)
-	// );
-	// upper_leg->rotation = upper_leg_base_rotation * glm::angleAxis(
-	// 	glm::radians(7.0f * std::sin(wobble * 2.0f * 2.0f * float(M_PI))),
-	// 	glm::vec3(0.0f, 0.0f, 1.0f)
-	// );
-	// lower_leg->rotation = lower_leg_base_rotation * glm::angleAxis(
-	// 	glm::radians(10.0f * std::sin(wobble * 3.0f * 2.0f * float(M_PI))),
-	// 	glm::vec3(0.0f, 0.0f, 1.0f)
-	// );
+			//Skip all spaces and punctuations because encoding them the lazy way
+			//I have been doing is very painful and idk how to make it better :'(
+			while(!isalpha(text.at(index))) {
+				curr += text.at(index++);
+			}
+		}
 
-	// //move sound to follow leg tip position:
-	// leg_tip_loop->set_position(get_leg_tip_position(), 1.0f / 60.0f);
+		button.down = false;
+	};
 
-	//move camera:
-	{
-
-		//combine inputs into a move:
-		constexpr float PlayerSpeed = 30.0f;
-		glm::vec2 move = glm::vec2(0.0f);
-		if (left.pressed && !right.pressed) move.x =-1.0f;
-		if (!left.pressed && right.pressed) move.x = 1.0f;
-		if (down.pressed && !up.pressed) move.y =-1.0f;
-		if (!down.pressed && up.pressed) move.y = 1.0f;
-
-		//make it so that moving diagonally doesn't go faster:
-		if (move != glm::vec2(0.0f)) move = glm::normalize(move) * PlayerSpeed * elapsed;
-
-		glm::mat4x3 frame = camera->transform->make_local_to_parent();
-		glm::vec3 right = frame[0];
-		//glm::vec3 up = frame[1];
-		glm::vec3 forward = -frame[2];
-
-		camera->transform->position += move.x * right + move.y * forward;
-	}
-
-	{ //update listener to camera position:
-		glm::mat4x3 frame = camera->transform->make_local_to_parent();
-		glm::vec3 right = frame[0];
-		glm::vec3 at = frame[3];
-		Sound::listener.set_position_right(at, right, 1.0f / 60.0f);
-	}
-
-	//reset button press counters:
-	left.downs = 0;
-	right.downs = 0;
-	up.downs = 0;
-	down.downs = 0;
+	check_letter(a, 'a');
+	check_letter(b, 'b');
+	check_letter(c, 'c');
+	check_letter(d, 'd');
+	check_letter(e, 'e');
+	check_letter(f, 'f');
+	check_letter(g, 'g');
+	check_letter(h, 'h');
+	check_letter(i, 'i');
+	check_letter(j, 'j');
+	check_letter(k, 'k');
+	check_letter(l, 'l');
+	check_letter(m, 'm');
+	check_letter(n, 'n');
+	check_letter(o, 'o');
+	check_letter(p, 'p');
+	check_letter(q, 'q');
+	check_letter(r, 'r');
+	check_letter(s, 's');
+	check_letter(t, 't');
+	check_letter(u, 'u');
+	check_letter(v, 'v');
+	check_letter(w, 'w');
+	check_letter(x, 'x');
+	check_letter(y, 'y');
+	check_letter(z, 'z');
 }
 
 void PlayMode::draw(glm::uvec2 const &drawable_size) {
@@ -223,12 +214,12 @@ void PlayMode::draw(glm::uvec2 const &drawable_size) {
 		));
 
 		constexpr float H = 0.09f;
-		lines.draw_text(to_string(time),
+		lines.draw_text(curr,
 			glm::vec3(-aspect + 0.1f * H, -1.0 + 0.1f * H, 0.0),
 			glm::vec3(H, 0.0f, 0.0f), glm::vec3(0.0f, H, 0.0f),
 			glm::u8vec4(0x00, 0x00, 0x00, 0x00));
 		float ofs = 2.0f / drawable_size.y;
-		lines.draw_text(to_string(time),
+		lines.draw_text(curr,
 			glm::vec3(-aspect + 0.1f * H + ofs, -1.0 + + 0.1f * H + ofs, 0.0),
 			glm::vec3(H, 0.0f, 0.0f), glm::vec3(0.0f, H, 0.0f),
 			glm::u8vec4(0xff, 0xff, 0xff, 0x00));

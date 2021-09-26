@@ -21,9 +21,11 @@ struct PlayMode : Mode {
 
 	//input tracking:
 	struct Button {
-		uint8_t downs = 0;
-		uint8_t pressed = 0;
-	} left, right, down, up;
+		bool down = false;
+		bool pressed = false;
+	} a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,p,q,r,s,t,u,v,w,x,y,z;
+
+	//std::vector< Button > buttons = {a, b, c, d, e, f, g, h, i, j, k, l, m, n, o, p, q, r, s, t, u, v, w, x, y, z};
 
 	//local copy of the game scene (so code can change it during gameplay):
 	Scene scene;
@@ -47,4 +49,8 @@ struct PlayMode : Mode {
 
 	float time = 0.0f;
 	int repeat_rate = 14;
+
+	std::string text = "Students at Carnegie Mellon are engaged in intellectual activity consistent with the highest standards of the academy. The relationship between students and instructors and their shared commitment to overarching standards of respect, honor and transparency determine the integrity of our community of scholars. The actions of our students, faculty and staff are a representation of our university community and of the professional and personal communities that we lead. Therefore, a deep and abiding commitment to academic integrity is fundamental to a Carnegie Mellon education. Honesty and good faith, clarity in the communication of core values, professional conduct of work, mutual trust and respect, and fairness and exemplary behavior represent the expectations for ethical behavior for all members of the Carnegie Mellon community.";
+	int index = 0;
+	std::string curr = "";
 };
