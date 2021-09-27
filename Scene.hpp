@@ -122,6 +122,9 @@ struct Scene {
 	std::list< Camera > cameras;
 	std::list< Light > lights;
 
+	//Keep track of the indices
+	int left_1 = -1, left_2 = -1, right_1 = -1, right_2 = -1;
+
 	//The "draw" function provides a convenient way to pass all the things in a scene to OpenGL:
 	void draw(Camera const &camera) const;
 
