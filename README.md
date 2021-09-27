@@ -3,7 +3,7 @@
 Author: Siheng Li
 
 Design: Oh no, a purple trash monster is invading your city,
-use your melodic skills to give him a beat down... on the beat.
+use your melodic skills to give him a "beat down".
 Plays just like Guitar Hero with a mouse & keyboard, but also
 with type racer elements thrown in.
 

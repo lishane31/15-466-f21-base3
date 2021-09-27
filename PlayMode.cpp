@@ -280,7 +280,6 @@ void PlayMode::update(float elapsed) {
 		scene.drawables.pop_back();
 		scene.drawables.pop_back();
 		
-		auto iter = scene.drawables.end();
 		if(!punched) {
 			Mesh const &left_mesh = hexapod_meshes->lookup("Left 1");
 			left_transform->name = "Left 1";
@@ -338,7 +337,6 @@ void PlayMode::update(float elapsed) {
 	}
 }
 
-static bool da = true;
 void PlayMode::draw(glm::uvec2 const &drawable_size) {
 	//update camera aspect ratio for drawable:
 	camera->aspect = float(drawable_size.x) / float(drawable_size.y);
